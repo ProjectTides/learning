@@ -21,3 +21,10 @@ cond do
 end
 
 
+functionWithDifferentDefinatios = fn
+        x, y when x > 0 -> x + y
+        x, y -> x * y
+end
+printLog.(functionWithDifferentDefinatios.(-1, 2))
+printLog.(functionWithDifferentDefinatios.(4, 2))
+
