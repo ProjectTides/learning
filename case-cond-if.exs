@@ -28,3 +28,12 @@ end
 printLog.(functionWithDifferentDefinatios.(-1, 2))
 printLog.(functionWithDifferentDefinatios.(4, 2))
 
+x= 3
+y= 4
+
+if x=y do
+printLog.("matched")
+else
+printLog.("Does not match")
+end
+
