@@ -38,3 +38,5 @@ end
 printLog.(Concat.join("Hello", "world"))   
 printLog.(Concat.join("Hello", "world", "_"))
 printLog.(Concat.join("Hello"))
+
+
