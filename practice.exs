@@ -25,14 +25,14 @@ defmodule WordCount do
     end
 end
 
-str = String.replace(List.to_string('GC'), ["G", "C"], fn <<char>> 
-          -> 
-           map = %{"G" => "C", "C" => "G", "T" => "A", "A" => "U"}
-           map[<<char>>] 
-      end)
-
-printLog.(str)
-
+range = 1..4
+Enum.reduce(range, 0, fn i , acc -> 
+ """
+  Hello #{i}
+ """
+  #i * i + acc 
+  
+  end)
 
 
 # printLog = fn text -> IO.puts "printing the #{text} \n ............ " end
