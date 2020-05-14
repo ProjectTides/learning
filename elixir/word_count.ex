@@ -11,13 +11,17 @@ defmodule WordCount do
     end
 
     defp countWord([head | tail], map) do
-        if(map[head] == nil) do
-            countWord(tail, Map.put(map, head, 1)) 
-        else
-            countWord(tail, %{map | head => (map[head] + 1)}) 
-        end
+     
+      countWord(tail, Map.update(map, head, 1, &(&1 + 1))) 
+        
+        # if(map[head] == nil) do
+        #     countWord(tail, Map.update(map, head, 1, )) 
+        # else
+           
+        # end
     end
 
+  
     defp countWord([], map) do
       map
     end
