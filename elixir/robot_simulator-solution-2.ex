@@ -15,7 +15,6 @@ defmodule RobotSimulator do
     { :error, "invalid direction" }
   end
 
-
   def create(direction, {x, y}) when is_integer(x) and is_integer(y) do
       %RobotSimulator{direction: direction, position: {x, y}}
   end
