@@ -1,48 +1,55 @@
-printLog = fn text -> IO.puts "printing the #{text} \n ............ " end
-
-defmodule WordCount do
-    @doc """
-  Count the number of words in the sentence.
-
-  Words are compared case-insensitively.
+defmodule RomanNumerals do
+  @doc """
+  Convert the number to a roman number.
   """
-    @spec count(String.t()) :: map
-    def count(sentence) do
-      wordList = String.split(sentence, " ")
-        countWord(wordList, %{})
+  @spec numeral(pos_integer) :: String.t()
+  def numeral(number) do
+    normalNumToRoman =  %{ 1 => "I",4 => "IV",5 => "V",9 => "IX",10 => "X",40 => "XL",50 => "L",90 => "XC",100 => "C",400 => "CD",500 => "D",900 => "CM",1000 => "M"}
+    numberSystem =  [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+    convertToRoman(number, numberSystem, normalNumToRoman, "H");
+  end
+
+  defp convertToRoman(0, list , normalNumToRoman, romanNumber) do 
+   IO.puts "#{romanNumber}"
+    romanNumber
+  end
+
+  defp convertToRoman(number, [] , normalNumToRoman, romanNumber) do 
+    IO.puts "#{romanNumber}"
+    romanNumber
+  end
+
+  defp convertToRoman(number, [head | tail], normalNumToRoman, romanNumber) do
+    # convertToRoman(number, tail, normalNumToRoman, romanNumber)
+      IO.puts "#{head}, #{number}"
+    if(number > head) do
+      newRomanNumber = romanNumber <> normalNumToRoman[head]
+      IO.puts "New #{head}, #{number}, #{newRomanNumber}"
+      convertToRoman(number - head, [head | tail], normalNumToRoman, newRomanNumber )
+    else
+      convertToRoman(number, tail, normalNumToRoman, romanNumber)
     end
 
-    defp countWord([head | tail], map) do
-        if(map[head] == nil) do
-            countWord(tail, Map.put(map, head, 1)) 
-        else
-            countWord(tail, %{map | head => (map[head] + 1)}) 
-        end
-    end
+    # "I"
 
-    defp countWord([], map) do
-      byte_size(map)
-    end
+      # cond do
+      #   (number > head) -> 
+      #     newRomanNumber = romanNumber <> normalNumToRoman[head]
+      #     convertToRoman(number - head, [head | tail], normalNumToRoman, romanNumber )
+
+      #   true -> convertToRoman(number, tail, normalNumToRoman, romanNumber)
+      # end
+  end
+  
 end
 
-range = 1..4
-Enum.reduce(range, 0, fn i , acc -> 
- """
-  Hello #{i}
- """
-  #i * i + acc 
-  
-  end)
+
+printLog = fn text -> IO.puts "printing the #{text} \n ............ " end
 
 
-# printLog = fn text -> IO.puts "printing the #{text} \n ............ " end
+# printLog.(String.match?("4?", ~r/\d/))
+printLog.(String.replace("4sss?", ~r/^[a-z]/, ""))
+printLog.(String.replace("1,2,3, cfu/ml", ~r/[\p{L}{,}, {\/}]/, ""))
+# RomanNumerals.numeral(27)
 
-#str = String.replace('G', ['G'], fn [head | _tail] -> [head + 1] end)
 
-# printLog.(String.to_charlist("G"))
-
-# list =  List.replace_at('G', 0, 0)
-# ll = List.to_string('G')
-
-# printLog.(ll)
-# IO.inspect(list, charlists: :as_lists)
