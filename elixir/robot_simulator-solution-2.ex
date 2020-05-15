@@ -1,7 +1,6 @@
 #problem link https://exercism.io/my/solutions/c02d12f43a714acf89fc058f151fe58a
 
 defmodule RobotSimulator do
-
   defstruct position: {0, 0}, direction: :north
   @right_directions %{:east => :south, :south => :west, :west => :north, :north => :east}
   @left_direction %{:north => :west, :west => :south, :south => :east, :east => :north}
@@ -9,20 +8,22 @@ defmodule RobotSimulator do
   @validDirections [:north, :east, :south, :west]
 
 
-
-  def invalid_direction(direction), do: direction not in @validDirections
-  def invalid_position({x, y}), do: !(is_integer(x) and is_integer(y))
-  def invalid_position(_position), do: true 
-
-
   @spec create(direction :: atom, position :: { integer, integer }) :: any
-   def create(direction \\ :north, position \\ {0, 0}) do 
-    cond do
-        invalid_direction(direction) -> { :error, "invalid direction" }
-        invalid_position(position) -> { :error, "invalid position" }
-        true -> %RobotSimulator{direction: direction, position: position}
-    end
+  def create(direction \\ :north, _position \\ {0, 0})
+
+  def create(direction, _position) when direction not in @validDirections do
+    { :error, "invalid direction" }
   end
+
+
+  def create(direction, {x, y}) when is_integer(x) and is_integer(y) do
+      %RobotSimulator{direction: direction, position: {x, y}}
+  end
+
+  def create(_direction, _position) do
+      { :error, "invalid position" }
+  end
+
 
   @doc """
   Simulate the robot's movement given a string of instructions.
