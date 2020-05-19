@@ -15,10 +15,7 @@ body {
   padding: 15px;
   background-color: #fff;
 }
-.book-row:hover {
-  background-color: #eee;
-  cursor: pointer;
-}
+
 .book-row + .book-row {
   border-top: 1px solid #ccc;
 }
@@ -49,4 +46,21 @@ body {
   background-color: #28a745;
   color: white;
   border: 1px solid transparent;
+}
+.view-book {
+  color: #0366d6;
+  font-size: 12px;
+}
+.edit-book {
+  color: rgb(7, 105, 157);
+  font-size: 12px;
+  margin-left: 10px;
+}
+.delete-book {
+  color: red;
+  margin-left: 10px;
+  font-size: 12px;
+}
+.c-pointer {
+  cursor: pointer;
 }
