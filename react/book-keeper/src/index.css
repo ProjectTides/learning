@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  background-color: #e1e1e6;
+  font-family: Nunito;
+}
+.app {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.page-title {
+  font-size: 48px;
+}
+.book-row {
+  padding: 15px;
+  background-color: #fff;
+}
+.book-row:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
+.book-row + .book-row {
+  border-top: 1px solid #ccc;
+}
+.book-name {
+  color: #333;
+  font-size: 24px;
+}
+.author-name {
+  color: #999;
+}
+.search-form {
+  margin-bottom: 15px;
+  display: flex;
+}
+.search-form input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  outline: none;
+  border: 1px solid #ccc;
+  box-shadow: none;
+}
+.search-form button {
+  margin-left: 5px;
+  border-radius: 8px;
+  font-size: 16px;
+  padding: 8px 12px;
+  background-color: #28a745;
+  color: white;
+  border: 1px solid transparent;
+}
