@@ -23,7 +23,20 @@ class BookList extends React.Component {
     super(props);
     this.state = {
       books: getBooks(),
+      viewBook: null,
     };
+    this.addBook = this.addBook.bind(this);
+  }
+  addBook(e) {
+    e.preventDefault();
+    const books = [
+      ...this.state.books,
+      {
+        title: e.target.title.value,
+        author: e.target.author.value,
+      },
+    ];
+    this.setState({ books: books });
   }
   viewBook(index) {
     console.log("view book");
@@ -35,27 +48,38 @@ class BookList extends React.Component {
     this.setState({ books: books });
   }
   render() {
-    return this.state.books.map((book, index) => (
-      <div key={index} className="book-row">
-        <div className="book-name">{book.title}</div>
-        <div className="author-name">{book.author}</div>
+    return (
+      <div>
         <div>
-          <u
-            className="view-book c-pointer"
-            onClick={() => this.viewBook(index)}
-          >
-            View
-          </u>
-          <u className="edit-book c-pointer">Edit</u>
-          <u
-            className="delete-book c-pointer"
-            onClick={() => this.deleteBook(index)}
-          >
-            Delete
-          </u>
+          <form className="book-form" onSubmit={this.addBook}>
+            <input type="text" name="title" placeholder="Book title" />
+            <input type="text" name="author" placeholder="Author name" />
+            <button>Add Book</button>
+          </form>
         </div>
+        {this.state.books.map((book, index) => (
+          <div key={index} className="book-row">
+            <div className="book-name">{book.title}</div>
+            <div className="author-name">{book.author}</div>
+            <div>
+              <u
+                className="view-book c-pointer"
+                onClick={() => this.viewBook(index)}
+              >
+                View
+              </u>
+              <u className="edit-book c-pointer">Edit</u>
+              <u
+                className="delete-book c-pointer"
+                onClick={() => this.deleteBook(index)}
+              >
+                Delete
+              </u>
+            </div>
+          </div>
+        ))}
       </div>
-    ));
+    );
   }
 }
 
@@ -64,10 +88,10 @@ class App extends React.Component {
     return (
       <div className="app">
         <h1 className="page-title">Book Keeper</h1>
-        <form className="search-form">
+        {/* <form className="search-form">
           <input type="text" placeholder="Search a book..." />
           <button>Search</button>
-        </form>
+        </form> */}
         <BookList />
       </div>
     );
