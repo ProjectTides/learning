@@ -23,9 +23,11 @@ class BookList extends React.Component {
     super(props);
     this.state = {
       books: getBooks(),
+      allBooks: getBooks(),
       viewBook: null,
     };
     this.addBook = this.addBook.bind(this);
+    this.filterBooks = this.filterBooks.bind(this);
   }
   addBook(e) {
     e.preventDefault();
@@ -36,25 +38,44 @@ class BookList extends React.Component {
         author: e.target.author.value,
       },
     ];
-    this.setState({ books: books });
+    this.setState({ books: books, allBooks: books });
   }
   viewBook(index) {
-    console.log("view book");
     console.log(index);
   }
   deleteBook(index) {
     const books = this.state.books;
     books.splice(index, 1);
-    this.setState({ books: books });
+    this.setState({ books: books, allBooks: books });
+  }
+  filterBooks(e) {
+    e.preventDefault();
+    const books = this.state.books;
+    const searchKeyword = e.target.value;
+    if (!searchKeyword) {
+      this.setState({ books: this.state.allBooks });
+      return;
+    }
+    const matchedBooks = books.filter((book) => {
+      return book.title.toLowerCase().includes(searchKeyword);
+    });
+    this.setState({ books: matchedBooks });
   }
   render() {
     return (
       <div>
-        <div>
+        <div className="forms-row">
           <form className="book-form" onSubmit={this.addBook}>
             <input type="text" name="title" placeholder="Book title" />
             <input type="text" name="author" placeholder="Author name" />
             <button>Add Book</button>
+          </form>
+          <form className="book-form">
+            <input
+              type="text"
+              placeholder="Search a book..."
+              onChange={this.filterBooks}
+            />
           </form>
         </div>
         {this.state.books.map((book, index) => (
@@ -88,10 +109,6 @@ class App extends React.Component {
     return (
       <div className="app">
         <h1 className="page-title">Book Keeper</h1>
-        {/* <form className="search-form">
-          <input type="text" placeholder="Search a book..." />
-          <button>Search</button>
-        </form> */}
         <BookList />
       </div>
     );

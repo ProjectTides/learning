@@ -50,17 +50,28 @@ body {
 .view-book {
   color: #0366d6;
   font-size: 12px;
+  margin-right: 10px;
+  display: none;
 }
 .edit-book {
   color: rgb(7, 105, 157);
   font-size: 12px;
-  margin-left: 10px;
+  margin-right: 10px;
 }
 .delete-book {
   color: red;
-  margin-left: 10px;
   font-size: 12px;
 }
 .c-pointer {
   cursor: pointer;
+}
+.forms-row {
+  display: flex;
+  justify-content: space-between;
+}
+.text-green {
+  color: #e1fee8;
+}
+.text-blue {
+  color: #cae1f9;
 }
