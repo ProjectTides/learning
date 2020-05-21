@@ -1,12 +1,13 @@
 import React from "react";
+import Input from "../../UI/Input/Input";
 
 const bookSearch = (props) => {
   return (
-    <form className="book-form">
-      <input
+    <form>
+      <Input
         type="text"
         placeholder="Search a book..."
-        onChange={props.onChange}
+        changed={props.onChange}
       />
     </form>
   );

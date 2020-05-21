@@ -66,6 +66,7 @@ class BookList extends Component {
   }
   filterBooks(e) {
     e.preventDefault();
+    console.log("clicked");
     const books = this.state.books;
     const searchKeyword = e.target.value;
     if (!searchKeyword) {

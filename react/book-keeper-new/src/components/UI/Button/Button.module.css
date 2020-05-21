@@ -5,26 +5,30 @@
   border-radius: 4px;
 }
 .Success {
-  background-color: green;
+  background-color: #28a745;
   color: white;
-  border: 1px solid green;
-  padding: 6px 12px;
+  border: 1px solid #28a745;
+  padding: 8px 12px;
+  font-size: 16px;
 }
 .Info {
   background-color: rgb(7, 105, 157);
   color: white;
   border: 1px solid rgb(7, 105, 157);
-  padding: 6px 12px;
+  padding: 8px 12px;
+  font-size: 16px;
 }
 .Danger {
   background-color: red;
   color: white;
-  padding: 6px 12px;
+  padding: 8px 12px;
+  font-size: 16px;
 }
 .Light {
   background-color: #eee;
   border: 1px solid #ccc;
-  padding: 6px 12px;
+  padding: 8px 12px;
+  font-size: 16px;
 }
 .Link {
   border: none;
