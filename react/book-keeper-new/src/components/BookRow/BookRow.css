@@ -1,0 +1,14 @@
+.book-row {
+  padding: 15px;
+  background-color: #fff;
+}
+.book-row + .book-row {
+  border-top: 1px solid #ccc;
+}
+.book-name {
+  color: #333;
+  font-size: 24px;
+}
+.author-name {
+  color: #999;
+}
