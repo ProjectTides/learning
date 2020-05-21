@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./BookList.css";
-import BookAdd from "../components/BookAdd/BookAdd";
-import BookSearch from "../components/BookSearch/BookSearch";
-import BookRow from "../components/BookRow/BookRow";
+import BookAdd from "../components/Book/BookAdd/BookAdd";
+import BookSearch from "../components/Book/BookSearch/BookSearch";
+import BookRow from "../components/Book/BookRow/BookRow";
 import Dialog from "../components/UI/Dialog/Dialog";
 
 class BookList extends Component {
