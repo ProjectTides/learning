@@ -1,9 +1,9 @@
 import React from "react";
-import "./BookDelete.css";
+import styles from "./BookDelete.module.css";
 
 function BookDelete(props) {
   return (
-    <u className="delete-book c-pointer" onClick={props.onClick}>
+    <u className={styles.Delete} onClick={props.onClick}>
       Delete
     </u>
   );

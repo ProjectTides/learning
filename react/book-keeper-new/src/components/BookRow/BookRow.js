@@ -1,5 +1,5 @@
 import React from "react";
-import BookDelete from "../BookDelete/BookDelete";
+import Button from "../UI/Button/Button";
 import "./BookRow.css";
 
 function BookRow(props) {
@@ -12,7 +12,9 @@ function BookRow(props) {
           View
         </u>
         <u className="edit-book c-pointer">Edit</u>
-        <BookDelete onClick={props.deleteBook} />
+        <Button clicked={props.deleteBook} classes="Danger">
+          Delete
+        </Button>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import "./BookList.css";
 import BookAdd from "../components/BookAdd/BookAdd";
 import BookSearch from "../components/BookSearch/BookSearch";
 import BookRow from "../components/BookRow/BookRow";
+import Dialog from "../components/UI/Dialog/Dialog";
 
 class BookList extends Component {
   constructor(props) {
@@ -11,6 +12,8 @@ class BookList extends Component {
       books: getBooks(),
       allBooks: getBooks(),
       viewBook: null,
+      showDialog: false,
+      bookToBeDeleted: null,
     };
     this.addBook = this.addBook.bind(this);
     this.filterBooks = this.filterBooks.bind(this);
@@ -29,10 +32,18 @@ class BookList extends Component {
   viewBook(index) {
     console.log(index);
   }
-  deleteBook(index) {
+  deleteBook() {
     const books = this.state.books;
-    books.splice(index, 1);
-    this.setState({ books: books, allBooks: books });
+    books.splice(this.state.bookToBeDeleted, 1);
+    this.setState({
+      books: books,
+      allBooks: books,
+      bookToBeDeleted: null,
+      showDialog: false,
+    });
+  }
+  cancelDeleteBook() {
+    this.setState({ bookToBeDeleted: null, showDialog: false });
   }
   filterBooks(e) {
     e.preventDefault();
@@ -48,6 +59,15 @@ class BookList extends Component {
     this.setState({ books: matchedBooks });
   }
   render() {
+    if (this.state.showDialog) {
+      return (
+        <Dialog
+          message="Are you sure you want to delete?"
+          clickedYes={() => this.deleteBook()}
+          clickedCancel={() => this.cancelDeleteBook()}
+        />
+      );
+    }
     return (
       <div>
         <div className="forms-row">
@@ -59,7 +79,9 @@ class BookList extends Component {
             key={index}
             book={book}
             viewBook={() => this.viewBook(index)}
-            deleteBook={() => this.deleteBook(index)}
+            deleteBook={() =>
+              this.setState({ showDialog: true, bookToBeDeleted: index })
+            }
           />
         ))}
       </div>
