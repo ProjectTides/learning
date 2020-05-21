@@ -1,14 +1,14 @@
-.book-row {
+.BookRow {
   padding: 15px;
   background-color: #fff;
 }
-.book-row + .book-row {
+.BookRow + .BookRow {
   border-top: 1px solid #ccc;
 }
-.book-name {
+.BookName {
   color: #333;
   font-size: 24px;
 }
-.author-name {
+.BookAuthor {
   color: #999;
 }

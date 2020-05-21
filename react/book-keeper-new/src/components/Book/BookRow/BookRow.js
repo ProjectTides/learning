@@ -1,18 +1,15 @@
 import React from "react";
 import Button from "../../UI/Button/Button";
-import "./BookRow.css";
+import styles from "./BookRow.module.css";
 
 const bookRow = (props) => {
   return (
-    <div className="book-row">
-      <div className="book-name">{props.book.title}</div>
-      <div className="author-name">{props.book.author}</div>
+    <div className={styles.BookRow}>
+      <div className={styles.BookName}>{props.book.title}</div>
+      <div className={styles.BookAuthor}>{props.book.author}</div>
       <div>
-        <u className="view-book c-pointer" onClick={props.viewBook}>
-          View
-        </u>
-        <u className="edit-book c-pointer">Edit</u>
-        <Button clicked={props.deleteBook} classes="Danger">
+        <Button classes="Link LinkInfo">Edit</Button>
+        <Button clicked={props.deleteBook} classes="Link LinkDanger">
           Delete
         </Button>
       </div>

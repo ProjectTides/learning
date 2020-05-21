@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./BookList.css";
+import styles from "./BookList.module.css";
 import BookAdd from "../components/Book/BookAdd/BookAdd";
 import BookSearch from "../components/Book/BookSearch/BookSearch";
 import BookRow from "../components/Book/BookRow/BookRow";
@@ -34,7 +34,7 @@ class BookList extends Component {
   }
   deleteBook() {
     const books = this.state.books;
-    books.splice(this.state.bookToBeDeleted, 1);
+    books.splice(this.state.bookToBeDeleted.index, 1);
     this.setState({
       books: books,
       allBooks: books,
@@ -59,31 +59,43 @@ class BookList extends Component {
     this.setState({ books: matchedBooks });
   }
   render() {
-    if (this.state.showDialog) {
-      return (
-        <Dialog
-          message="Are you sure you want to delete?"
-          clickedYes={() => this.deleteBook()}
-          clickedCancel={() => this.cancelDeleteBook()}
-        />
-      );
-    }
+    // if (this.state.showDialog) {
+    //   return (
+    //     <Dialog
+    //       message={`Are you sure you want to delete the book "${this.state.bookToBeDeleted.title}"?`}
+    //       clickedYes={() => this.deleteBook()}
+    //       clickedCancel={() => this.cancelDeleteBook()}
+    //     />
+    //   );
+    // }
     return (
       <div>
-        <div className="forms-row">
-          <BookAdd onSubmit={this.addBook} />
-          <BookSearch onChange={this.filterBooks} />
+        <div>
+          <div className={styles.FormsRow}>
+            <BookAdd onSubmit={this.addBook} />
+            <BookSearch onChange={this.filterBooks} />
+          </div>
+          {this.state.books.map((book, index) => (
+            <BookRow
+              key={index}
+              book={book}
+              viewBook={() => this.viewBook(index)}
+              deleteBook={() =>
+                this.setState({
+                  showDialog: true,
+                  bookToBeDeleted: { title: book.title, index: index },
+                })
+              }
+            />
+          ))}
         </div>
-        {this.state.books.map((book, index) => (
-          <BookRow
-            key={index}
-            book={book}
-            viewBook={() => this.viewBook(index)}
-            deleteBook={() =>
-              this.setState({ showDialog: true, bookToBeDeleted: index })
-            }
+        {this.state.showDialog && (
+          <Dialog
+            message={`Are you sure you want to delete the book "${this.state.bookToBeDeleted.title}"?`}
+            clickedYes={() => this.deleteBook()}
+            clickedCancel={() => this.cancelDeleteBook()}
           />
-        ))}
+        )}
       </div>
     );
   }

@@ -1,11 +1,45 @@
 .Button {
   cursor: pointer;
   outline: none;
-  font-weight: bold;
+  margin-right: 8px;
+  border-radius: 4px;
 }
 .Success {
-  color: green;
+  background-color: green;
+  color: white;
+  border: 1px solid green;
+  padding: 6px 12px;
+}
+.Info {
+  background-color: rgb(7, 105, 157);
+  color: white;
+  border: 1px solid rgb(7, 105, 157);
+  padding: 6px 12px;
 }
 .Danger {
+  background-color: red;
+  color: white;
+  padding: 6px 12px;
+}
+.Light {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+}
+.Link {
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+}
+.LinkSuccess {
+  color: green;
+}
+.LinkInfo {
+  color: rgb(7, 105, 157);
+}
+.LinkDanger {
   color: red;
+}
+.LinkLight {
+  color: #eee;
 }
