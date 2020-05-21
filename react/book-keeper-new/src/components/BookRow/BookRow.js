@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../UI/Button/Button";
 import "./BookRow.css";
 
-function BookRow(props) {
+const bookRow = (props) => {
   return (
     <div className="book-row">
       <div className="book-name">{props.book.title}</div>
@@ -18,5 +18,5 @@ function BookRow(props) {
       </div>
     </div>
   );
-}
-export default BookRow;
+};
+export default bookRow;

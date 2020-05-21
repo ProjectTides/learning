@@ -1,6 +1,6 @@
 import React from "react";
 
-function BookSearch(props) {
+const bookSearch = (props) => {
   return (
     <form className="book-form">
       <input
@@ -10,6 +10,6 @@ function BookSearch(props) {
       />
     </form>
   );
-}
+};
 
-export default BookSearch;
+export default bookSearch;
