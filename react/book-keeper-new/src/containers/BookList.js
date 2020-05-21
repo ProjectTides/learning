@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./BookList.module.css";
 import BookAdd from "../components/Book/BookAdd/BookAdd";
+import BookEdit from "../components/Book/BookEdit/BookEdit";
 import BookSearch from "../components/Book/BookSearch/BookSearch";
 import BookRow from "../components/Book/BookRow/BookRow";
 import Dialog from "../components/UI/Dialog/Dialog";
@@ -12,10 +13,13 @@ class BookList extends Component {
       books: getBooks(),
       allBooks: getBooks(),
       viewBook: null,
-      showDialog: false,
+      showConfirmDialog: false,
       bookToBeDeleted: null,
+      showEditDialog: false,
+      bookToBeUpdated: null,
     };
     this.addBook = this.addBook.bind(this);
+    this.updateBook = this.updateBook.bind(this);
     this.filterBooks = this.filterBooks.bind(this);
   }
   addBook(e) {
@@ -29,9 +33,6 @@ class BookList extends Component {
     ];
     this.setState({ books: books, allBooks: books });
   }
-  viewBook(index) {
-    console.log(index);
-  }
   deleteBook() {
     const books = this.state.books;
     books.splice(this.state.bookToBeDeleted.index, 1);
@@ -39,11 +40,29 @@ class BookList extends Component {
       books: books,
       allBooks: books,
       bookToBeDeleted: null,
-      showDialog: false,
+      showConfirmDialog: false,
     });
   }
   cancelDeleteBook() {
-    this.setState({ bookToBeDeleted: null, showDialog: false });
+    this.setState({ bookToBeDeleted: null, showConfirmDialog: false });
+  }
+  updateBook(e) {
+    e.preventDefault();
+    let books = this.state.books;
+    books[this.state.bookToBeUpdated.index] = {
+      title: e.target.title.value,
+      author: e.target.author.value,
+    };
+
+    this.setState({
+      books: books,
+      allBooks: books,
+      bookToBeUpdated: null,
+      showEditDialog: false,
+    });
+  }
+  cancelEditBook() {
+    this.setState({ bookToBeUpdated: null, showEditDialog: false });
   }
   filterBooks(e) {
     e.preventDefault();
@@ -59,15 +78,6 @@ class BookList extends Component {
     this.setState({ books: matchedBooks });
   }
   render() {
-    // if (this.state.showDialog) {
-    //   return (
-    //     <Dialog
-    //       message={`Are you sure you want to delete the book "${this.state.bookToBeDeleted.title}"?`}
-    //       clickedYes={() => this.deleteBook()}
-    //       clickedCancel={() => this.cancelDeleteBook()}
-    //     />
-    //   );
-    // }
     return (
       <div>
         <div>
@@ -79,21 +89,38 @@ class BookList extends Component {
             <BookRow
               key={index}
               book={book}
-              viewBook={() => this.viewBook(index)}
+              editBook={() =>
+                this.setState({
+                  showEditDialog: true,
+                  bookToBeUpdated: {
+                    title: book.title,
+                    author: book.author,
+                    index: index,
+                  },
+                })
+              }
               deleteBook={() =>
                 this.setState({
-                  showDialog: true,
+                  showConfirmDialog: true,
                   bookToBeDeleted: { title: book.title, index: index },
                 })
               }
             />
           ))}
         </div>
-        {this.state.showDialog && (
+        {this.state.showConfirmDialog && (
           <Dialog
             message={`Are you sure you want to delete the book "${this.state.bookToBeDeleted.title}"?`}
-            clickedYes={() => this.deleteBook()}
+            clickedSuccess={() => this.deleteBook()}
             clickedCancel={() => this.cancelDeleteBook()}
+          />
+        )}
+        {this.state.showEditDialog && (
+          <BookEdit
+            title={this.state.bookToBeUpdated.title}
+            author={this.state.bookToBeUpdated.author}
+            onSubmit={this.updateBook}
+            canceled={() => this.cancelEditBook()}
           />
         )}
       </div>

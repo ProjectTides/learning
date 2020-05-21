@@ -7,8 +7,9 @@ const dialog = (props) => {
     <div className={styles.DialogContainer}>
       <div className={styles.Dialog}>
         <p className={styles.DialogMessage}>{props.message}</p>
+        {props.children}
         <div class="actions">
-          <Button classes="Info" clicked={props.clickedYes}>
+          <Button classes="Info" clicked={props.clickedSuccess}>
             Yes
           </Button>
           <Button classes="Light" clicked={props.clickedCancel}>
