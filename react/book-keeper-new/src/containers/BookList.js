@@ -14,14 +14,14 @@ const BookList = () => {
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [bookToBeUpdated, setBookToBeUpdated] = useState(null);
 
-  const addBook = (e) => {
+  const addBook = async (e) => {
     e.preventDefault();
-    books.push({
+    let newBook = {
       title: e.target.title.value,
       author: e.target.author.value,
-    });
-    setBooks(books);
-    setAllBooks(books);
+    };
+    setBooks([...books, newBook]);
+    setAllBooks([...books, newBook]);
   };
   const deleteBook = () => {
     books.splice(bookToBeDeleted.index, 1);
