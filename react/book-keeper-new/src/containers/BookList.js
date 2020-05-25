@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styles from "./BookList.module.css";
 import BookAdd from "../components/Book/BookAdd/BookAdd";
 import BookEdit from "../components/Book/BookEdit/BookEdit";
@@ -6,128 +6,108 @@ import BookSearch from "../components/Book/BookSearch/BookSearch";
 import BookRow from "../components/Book/BookRow/BookRow";
 import Dialog from "../components/UI/Dialog/Dialog";
 
-class BookList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books: getBooks(),
-      allBooks: getBooks(),
-      viewBook: null,
-      showConfirmDialog: false,
-      bookToBeDeleted: null,
-      showEditDialog: false,
-      bookToBeUpdated: null,
-    };
-    this.addBook = this.addBook.bind(this);
-    this.updateBook = this.updateBook.bind(this);
-    this.filterBooks = this.filterBooks.bind(this);
-  }
-  addBook(e) {
+const BookList = () => {
+  const [books, setBooks] = useState(getBooks());
+  const [allBooks, setAllBooks] = useState(getBooks());
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [bookToBeDeleted, setBookToBeDeleted] = useState(null);
+  const [showEditDialog, setShowEditDialog] = useState(false);
+  const [bookToBeUpdated, setBookToBeUpdated] = useState(null);
+
+  const addBook = (e) => {
     e.preventDefault();
-    const books = [
-      ...this.state.books,
-      {
-        title: e.target.title.value,
-        author: e.target.author.value,
-      },
-    ];
-    this.setState({ books: books, allBooks: books });
-  }
-  deleteBook() {
-    const books = this.state.books;
-    books.splice(this.state.bookToBeDeleted.index, 1);
-    this.setState({
-      books: books,
-      allBooks: books,
-      bookToBeDeleted: null,
-      showConfirmDialog: false,
+    books.push({
+      title: e.target.title.value,
+      author: e.target.author.value,
     });
-  }
-  cancelDeleteBook() {
-    this.setState({ bookToBeDeleted: null, showConfirmDialog: false });
-  }
-  updateBook(e) {
+    setBooks(books);
+    setAllBooks(books);
+  };
+  const deleteBook = () => {
+    books.splice(bookToBeDeleted.index, 1);
+    setBooks(books);
+    setAllBooks(books);
+    setBookToBeDeleted(null);
+    setShowConfirmDialog(false);
+  };
+  const cancelDeleteBook = () => {
+    setBookToBeDeleted(null);
+    setShowConfirmDialog(false);
+  };
+  const updateBook = (e) => {
     e.preventDefault();
-    let books = this.state.books;
-    books[this.state.bookToBeUpdated.index] = {
+    books[bookToBeUpdated.index] = {
       title: e.target.title.value,
       author: e.target.author.value,
     };
-
-    this.setState({
-      books: books,
-      allBooks: books,
-      bookToBeUpdated: null,
-      showEditDialog: false,
-    });
-  }
-  cancelEditBook() {
-    this.setState({ bookToBeUpdated: null, showEditDialog: false });
-  }
-  filterBooks(e) {
+    setBooks(books);
+    setAllBooks(books);
+    setBookToBeUpdated(null);
+    setShowEditDialog(false);
+  };
+  const cancelEditBook = () => {
+    setBookToBeUpdated(null);
+    setShowEditDialog(false);
+  };
+  const filterBooks = (e) => {
     e.preventDefault();
-    console.log("clicked");
-    const books = this.state.books;
     const searchKeyword = e.target.value;
     if (!searchKeyword) {
-      this.setState({ books: this.state.allBooks });
+      setBooks(allBooks);
       return;
     }
     const matchedBooks = books.filter((book) => {
       return book.title.toLowerCase().includes(searchKeyword);
     });
-    this.setState({ books: matchedBooks });
-  }
-  render() {
-    return (
+    setBooks(matchedBooks);
+  };
+  return (
+    <div>
       <div>
-        <div>
-          <div className={styles.FormsRow}>
-            <BookAdd onSubmit={this.addBook} />
-            <BookSearch onChange={this.filterBooks} />
-          </div>
-          {this.state.books.map((book, index) => (
-            <BookRow
-              key={index}
-              book={book}
-              editBook={() =>
-                this.setState({
-                  showEditDialog: true,
-                  bookToBeUpdated: {
-                    title: book.title,
-                    author: book.author,
-                    index: index,
-                  },
-                })
-              }
-              deleteBook={() =>
-                this.setState({
-                  showConfirmDialog: true,
-                  bookToBeDeleted: { title: book.title, index: index },
-                })
-              }
-            />
-          ))}
+        <div className={styles.FormsRow}>
+          <BookAdd onSubmit={addBook} />
+          <BookSearch onChange={filterBooks} />
         </div>
-        {this.state.showConfirmDialog && (
-          <Dialog
-            message={`Are you sure you want to delete the book "${this.state.bookToBeDeleted.title}"?`}
-            clickedSuccess={() => this.deleteBook()}
-            clickedCancel={() => this.cancelDeleteBook()}
+        {books.map((book, index) => (
+          <BookRow
+            key={index}
+            book={book}
+            editBook={() => {
+              setShowEditDialog(true);
+              setBookToBeUpdated({
+                title: book.title,
+                author: book.author,
+                index: index,
+              });
+            }}
+            deleteBook={() => {
+              setShowConfirmDialog(true);
+              setBookToBeDeleted({
+                title: book.title,
+                index: index,
+              });
+            }}
           />
-        )}
-        {this.state.showEditDialog && (
-          <BookEdit
-            title={this.state.bookToBeUpdated.title}
-            author={this.state.bookToBeUpdated.author}
-            onSubmit={this.updateBook}
-            canceled={() => this.cancelEditBook()}
-          />
-        )}
+        ))}
       </div>
-    );
-  }
-}
+      {showConfirmDialog && (
+        <Dialog
+          message={`Are you sure you want to delete the book "${bookToBeDeleted.title}"?`}
+          clickedSuccess={() => deleteBook()}
+          clickedCancel={() => cancelDeleteBook()}
+        />
+      )}
+      {showEditDialog && (
+        <BookEdit
+          title={bookToBeUpdated.title}
+          author={bookToBeUpdated.author}
+          onSubmit={updateBook}
+          canceled={() => cancelEditBook()}
+        />
+      )}
+    </div>
+  );
+};
 
 function getBooks() {
   return [
