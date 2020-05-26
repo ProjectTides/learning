@@ -1,0 +1,13 @@
+/* index.css */
+body {
+  margin: 0;
+  font-family: Nunito;
+  /* -webkit-font-smoothing: antialiased; */
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #e1e1e6;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

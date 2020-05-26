@@ -1,0 +1,14 @@
+.BookRow {
+  padding: 15px;
+  background-color: #fff;
+}
+.BookRow + .BookRow {
+  border-top: 1px solid #ccc;
+}
+.BookName {
+  color: #333;
+  font-size: 24px;
+}
+.BookAuthor {
+  color: #999;
+}
