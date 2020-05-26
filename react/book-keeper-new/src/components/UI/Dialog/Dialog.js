@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../Button/Button";
 import styles from "./Dialog.module.css";
 
-const dialog = (props) => {
+const Dialog = (props) => {
   return (
     <div className={styles.DialogContainer}>
       <div className={styles.Dialog}>
@@ -21,4 +21,4 @@ const dialog = (props) => {
   );
 };
 
-export default dialog;
+export default Dialog;

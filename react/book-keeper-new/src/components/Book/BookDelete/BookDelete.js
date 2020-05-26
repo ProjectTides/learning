@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./BookDelete.module.css";
 
-const bookDelete = (props) => {
+const BookDelete = (props) => {
   return (
     <u className={styles.Delete} onClick={props.onClick}>
       Delete
@@ -9,4 +9,4 @@ const bookDelete = (props) => {
   );
 };
 
-export default bookDelete;
+export default BookDelete;

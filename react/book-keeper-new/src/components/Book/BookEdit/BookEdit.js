@@ -4,7 +4,7 @@ import Input from "../../UI/Input/Input";
 import Dialog from "../../UI/Dialog/Dialog";
 import styles from "./BookEdit.module.css";
 
-const bookEdit = (props) => {
+const BookEdit = (props) => {
   return (
     <div className={styles.DialogContainer}>
       <div className={styles.Dialog}>
@@ -36,4 +36,4 @@ const bookEdit = (props) => {
   );
 };
 
-export default bookEdit;
+export default BookEdit;

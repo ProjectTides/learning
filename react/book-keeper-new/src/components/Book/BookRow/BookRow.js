@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../../UI/Button/Button";
 import styles from "./BookRow.module.css";
 
-const bookRow = (props) => {
+const BookRow = (props) => {
   return (
     <div className={styles.BookRow}>
       <div className={styles.BookName}>{props.book.title}</div>
@@ -18,4 +18,4 @@ const bookRow = (props) => {
     </div>
   );
 };
-export default bookRow;
+export default BookRow;

@@ -3,7 +3,7 @@ import Button from "../../UI/Button/Button";
 import Input from "../../UI/Input/Input";
 import styles from "./BookAdd.module.css";
 
-const bookAdd = (props) => {
+const BookAdd = (props) => {
   return (
     <form className={styles.BookAdd} onSubmit={props.onSubmit}>
       <Input type="text" name="title" placeholder="Book title" />
@@ -15,4 +15,4 @@ const bookAdd = (props) => {
   );
 };
 
-export default bookAdd;
+export default BookAdd;

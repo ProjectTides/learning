@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Button.module.css";
 
-const button = (props) => {
+const Button = (props) => {
   let classes = [styles.Button];
   if (props.classes) {
     props.classes.split(" ").map((classSingle) => {
@@ -15,4 +15,4 @@ const button = (props) => {
   );
 };
 
-export default button;
+export default Button;

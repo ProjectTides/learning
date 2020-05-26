@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Input.module.css";
 
-const input = (props) => {
+const Input = (props) => {
   let classes = [styles.Input];
   if (props.classes) {
     props.classes.split(" ").map((classSingle) => {
@@ -23,4 +23,4 @@ const input = (props) => {
   );
 };
 
-export default input;
+export default Input;

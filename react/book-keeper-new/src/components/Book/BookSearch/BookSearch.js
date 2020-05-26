@@ -1,7 +1,7 @@
 import React from "react";
 import Input from "../../UI/Input/Input";
 
-const bookSearch = (props) => {
+const BookSearch = (props) => {
   return (
     <form>
       <Input
@@ -13,4 +13,4 @@ const bookSearch = (props) => {
   );
 };
 
-export default bookSearch;
+export default BookSearch;
